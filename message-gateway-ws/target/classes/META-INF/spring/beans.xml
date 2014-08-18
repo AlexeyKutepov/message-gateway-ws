@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xmlns:cxf="http://camel.apache.org/schema/cxf"
+       xmlns:ctx="http://www.springframework.org/schema/context"
+       xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring
+       http://camel.apache.org/schema/spring/camel-spring.xsd
+       http://camel.apache.org/schema/cxf
+       http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://www.springframework.org/schema/osgi-compendium
+       http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       ">
+
+    <osgix:cm-properties id="defaultProperties"   persistent-id="message.gateway.ws">
+        <prop key="mail.host">no-default</prop>
+        <prop key="mail.port">25</prop>
+        <prop key="mail.username">no-default</prop>
+        <prop key="mail.password">no-default</prop>
+        <prop key="mail.protocol">no-default</prop>
+        <prop key="mail.from">no-default</prop>
+    </osgix:cm-properties>
+
+    <ctx:property-placeholder properties-ref="defaultProperties" />
+
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+
+    <!-- cxf-endpoint -->
+    <cxf:cxfEndpoint id="SoapMessageGatewayService" address="/SoapMessageGatewayService"
+                     wsdlURL="classpath:META-INF/model/MessageGateway.wsdl"
+                     serviceName="ws:MessageGatewayService" endpointName="ws:MessageGatewayPort"
+                     xmlns:ws="http://schemas.tz.com/message-gateway-ws">
+        <cxf:properties>
+            <entry key="dataFormat" value="PAYLOAD"/>
+        </cxf:properties>
+
+    </cxf:cxfEndpoint>
+
+      <!-- beans -->
+    <bean id="validator" class="message.gateway.ws.Validator"/>
+    <bean id="faultResponse" class="message.gateway.ws.FaultResponse"/>
+    <bean id="createResponse" class="message.gateway.ws.CreateResponse"/>
+    <bean id="prepareEmailMessage" class="message.gateway.ws.PrepareEmailMessage"/>
+
+
+    <!-- camel-mail -->
+    <bean id="MailEndpoint" class="org.apache.camel.component.mail.MailEndpoint">
+        <property name="camelContext" ref="camelContext"/>
+        <property name="configuration" ref="mailConfig"/>
+    </bean>
+
+
+    <bean id="mailConfig" class="org.apache.camel.component.mail.MailConfiguration">
+        <property name="host" value="${mail.host}"/>
+        <property name="port"  value="${mail.port}" />
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+        <property name="protocol" value="${mail.protocol}"/>
+        <property name="from" value="${mail.from}"/>
+    </bean>
+
+    <!-- camel-context -->
+    <camel:camelContext id="camelContext" xmlns="http://camel.apache.org/schema/spring">
+        <camel:package>message.gateway.ws</camel:package>
+    </camel:camelContext>
+
+
+</beans>

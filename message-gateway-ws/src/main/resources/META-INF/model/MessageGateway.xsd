@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://schemas.tz.com/message-gateway-ws"
+           elementFormDefault="qualified"
+           targetNamespace="http://schemas.tz.com/message-gateway-ws">
+    <xs:annotation>
+        <xs:documentation>Сервис отправки сообщений</xs:documentation>
+    </xs:annotation>
+    <xs:element name="SendEmailMessage">
+        <xs:annotation>
+            <xs:documentation>Отправка сообщения синхронно</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Message" type="Message">
+                    <xs:annotation>
+                        <xs:documentation>Сообщение</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SendEmailMessageAsync">
+        <xs:annotation>
+            <xs:documentation>Отправка сообщения асинхронно</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Message" type="Message">
+                    <xs:annotation>
+                        <xs:documentation>Сообщение</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SendMessageResponse" type="SendMessageResponseType">
+        <xs:annotation>
+            <xs:documentation>Ответ на синхронную отправку сообщения
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="Message">
+        <xs:annotation>
+            <xs:documentation>
+                Сообщение сочетающее транспортный конверт и тело сообщения
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Endpoints">
+                <xs:annotation>
+                    <xs:documentation>Конечные точки доставки сообщения</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Endpoint" type="Endpoint"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Header" type="Header">
+                <xs:annotation>
+                    <xs:documentation>Заголовок сообщения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="Body" type="Body">
+                <xs:annotation>
+                    <xs:documentation>Содержимое сообщения</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Endpoint">
+        <xs:annotation>
+            <xs:documentation>Конечная точка</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Address" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Электронный адрес</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Header">
+        <xs:annotation>
+            <xs:documentation>Заголовок</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="Subject" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Значение параметра</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Body">
+        <xs:annotation>
+            <xs:documentation>Тело сообщения</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="TextMessage" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>Текстовое сообщение</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SendMessageResponseType">
+        <xs:sequence>
+            <xs:element name="ResultCode">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="OK"/>
+                        <xs:enumeration value="ERROR"/>
+                        <xs:enumeration value="UNKNOWN"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element minOccurs="0" name="ErrorCode" type="xs:string"/>
+            <xs:element minOccurs="0" name="Message" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
