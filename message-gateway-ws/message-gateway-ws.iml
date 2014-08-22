@@ -14,7 +14,7 @@
           <property key="Import-Package" value="javax.jws,javax.xml.bind,javax.xml.bind.annotation,javax.xml.datatype,javax.xml.namespace,javax.xml.ws,org.apache.camel,org.apache.camel.builder,org.apache.camel.model,org.apache.camel.model.dataformat,*" />
           <property key="Require-Bundle" value="org.apache.cxf.bundle" />
           <property key="Bundle-Name" value="TZ :: message-gateway-ws" />
-          <property key="Include-Resource" value="META-INF/model/MessageGateway.wsdl=$MODULE_DIR$/src/main/resources/META-INF/model/MessageGateway.wsdl,META-INF/model/MessageGateway.xsd=$MODULE_DIR$/src/main/resources/META-INF/model/MessageGateway.xsd,META-INF/spring/beans.xml=$MODULE_DIR$/src/main/resources/META-INF/spring/beans.xml" />
+          <property key="Include-Resource" value="META-INF/model/MessageGateway.wsdl=C:/opt/workspace6/message-gateway-ws/src/main/resources/META-INF/model/MessageGateway.wsdl,META-INF/model/MessageGateway.xsd=C:/opt/workspace6/message-gateway-ws/src/main/resources/META-INF/model/MessageGateway.xsd,META-INF/spring/beans.xml=C:/opt/workspace6/message-gateway-ws/src/main/resources/META-INF/spring/beans.xml" />
         </additionalProperties>
         <additionalJARContents />
       </configuration>
@@ -31,9 +31,22 @@
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/cxf-codegen-plugin-markers" />
       <excludeFolder url="file://$MODULE_DIR$/target/maven-status" />
+      <excludeFolder url="file://$MODULE_DIR$/target/surefire-reports" />
+      <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" scope="TEST">
+      <library name="JUnit4">
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/" />
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/hamcrest-core-1.3.jar!/" />
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/hamcrest-library-1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.10.0.redhat-60024" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.6" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.5" level="project" />
@@ -57,6 +70,8 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.cxf:cxf-rt-ws-addr:2.6.0.redhat-60024" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.cxf:cxf-rt-ws-policy:2.6.0.redhat-60024" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.neethi:neethi:3.0.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
   </component>
 </module>
 

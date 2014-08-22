@@ -1,0 +1,3 @@
+message\gateway\ws\ValidatorTest.class
+message\gateway\ws\utils\MessageFactory.class
+message\gateway\ws\types\ValidatorTestDataWrapper.class

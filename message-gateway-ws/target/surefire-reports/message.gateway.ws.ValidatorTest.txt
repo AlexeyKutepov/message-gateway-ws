@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: message.gateway.ws.ValidatorTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.276 sec <<< FAILURE! - in message.gateway.ws.ValidatorTest
+testProcessIsCorrect(message.gateway.ws.ValidatorTest)  Time elapsed: 0.005 sec  <<< FAILURE!
+java.lang.AssertionError: Класс Validator работает не корректно
+	at org.junit.Assert.fail(Assert.java:88)
+	at message.gateway.ws.ValidatorTest.testProcessIsCorrect(ValidatorTest.java:80)
+
