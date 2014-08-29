@@ -19,17 +19,35 @@ public class Validator implements Processor {
     /**
      * Проверка e-mail адреса на корректность
      * @param email
-     * @throws NotValidMessageException - если введён некорректный e-mail
+     * @return true - валидный адрес, false - не валидный адрес
      */
-    public void validateEmailAddress(String email) throws NotValidMessageException {
+    public boolean validateEmailAddress(String email)  {
         if (email==null || email.isEmpty()) {
-            throw new NotValidMessageException("e-mail адрес не может быть пустой строкой");
+            return false;
         }
-        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]+(([.]|-|_)?[a-zA-Z0-9])*@[a-zA-Z0-9]+(([.]|-|_)?[a-zA-Z0-9])+$");
-        Matcher matcher = pattern.matcher(email);
-        if (!matcher.matches()) {
-            throw new NotValidMessageException("Не валидный e-mail адрес");
+        String[] splitedEmail = email.split("@");
+        if (splitedEmail.length!=2) {
+            return false;
         }
+        String name = splitedEmail[0];
+        String domain = splitedEmail[1];
+        if (name.length()>0 && name.length()<=128) {
+            Pattern patternName = Pattern.compile("^[a-zA-Z0-9]+(([.]|-|_){1}[a-zA-Z0-9]+)*$");
+            Matcher matcherName = patternName.matcher(name);
+            if (!matcherName.matches()) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        if (domain.length()>=3 && domain.length()<=256) {
+            Pattern patternDomain = Pattern.compile("^[a-zA-Z0-9]+(([.]|-|_){1}[a-zA-Z0-9]+)*([.]{1}[a-zA-Z]+)+$");
+            Matcher matcherDomain = patternDomain.matcher(domain);
+            if (!matcherDomain.matches()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -49,7 +67,9 @@ public class Validator implements Processor {
             throw new NotValidMessageException(ERROR_TEXT_ENDPOINT_IS_NULL);
         } else {
             for (Endpoint endpoint : message.getEndpoints().getEndpoint()) {
-                validateEmailAddress(endpoint.getAddress());
+                if (!validateEmailAddress(endpoint.getAddress())) {
+                    throw new NotValidMessageException(ERROR_TEXT_NOT_VALID_EMAIL);
+                }
             }
         }
         if (message.getHeader()==null ||

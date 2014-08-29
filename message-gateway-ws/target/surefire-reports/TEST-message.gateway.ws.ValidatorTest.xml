@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="message.gateway.ws.ValidatorTest" time="0.236" tests="3" errors="0" skipped="0" failures="1">
+<testsuite name="message.gateway.ws.ValidatorTest" time="0.244" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="idea.version" value="13.1"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -11,7 +11,7 @@
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
     <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
     <property name="file.encoding.pkg" value="sun.io"/>
-    <property name="idea.launcher.port" value="7547"/>
+    <property name="idea.launcher.port" value="7533"/>
     <property name="user.script" value=""/>
     <property name="user.country" value="RU"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
@@ -63,12 +63,7 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase name="testValidateEmailAddress" classname="message.gateway.ws.ValidatorTest" time="0.214"/>
-  <testcase name="testProcessIsCorrect" classname="message.gateway.ws.ValidatorTest" time="0.005">
-    <failure message="Класс Validator работает не корректно" type="java.lang.AssertionError">java.lang.AssertionError: Класс Validator работает не корректно
-	at org.junit.Assert.fail(Assert.java:88)
-	at message.gateway.ws.ValidatorTest.testProcessIsCorrect(ValidatorTest.java:80)
-</failure>
-  </testcase>
-  <testcase name="testProcessExceptions" classname="message.gateway.ws.ValidatorTest" time="0.017"/>
+  <testcase name="testValidateEmailAddress" classname="message.gateway.ws.ValidatorTest" time="0.228"/>
+  <testcase name="testProcessIsCorrect" classname="message.gateway.ws.ValidatorTest" time="0.001"/>
+  <testcase name="testProcessExceptions" classname="message.gateway.ws.ValidatorTest" time="0.015"/>
 </testsuite>

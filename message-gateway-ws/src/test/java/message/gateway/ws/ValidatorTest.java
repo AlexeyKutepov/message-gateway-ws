@@ -1,6 +1,5 @@
 package message.gateway.ws;
 
-import com.tz.schemas.message_gateway_ws.Endpoint;
 import com.tz.schemas.message_gateway_ws.Message;
 import message.gateway.ws.types.NotValidMessageException;
 import message.gateway.ws.types.ValidatorTestDataWrapper;
@@ -20,7 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static message.gateway.ws.types.Constants.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import static message.gateway.ws.types.TestConstants.*;
+
 
 
 /**
@@ -76,14 +80,26 @@ public class ValidatorTest {
         try {
             validator.process(defaultExchange);
         } catch (Exception e) {
-            fail("Класс Validator работает не корректно");
+            fail("Класс Validator работает не корректно: "+e);
         }
     }
 
     @Test
     public void testValidateEmailAddress() throws Exception {
-        //TODO в работе
+        for (String item : EMAIL_LIST_TRUE) {
+            assertTrue(
+                    "Не корректная работа метода validateEmailAddress(). Входные данные: "+item+" (валидный адрес). Результат: false",
+                    validator.validateEmailAddress(item)
+            );
+        }
+        for (String item : EMAIL_LIST_FALSE) {
+            assertFalse(
+                    "Не корректная работа метода validateEmailAddress(). Входные данные: "+item+" (невалидный адрес). Результат: true",
+                    validator.validateEmailAddress(item)
+            );
+        }
     }
+
 
 }
 
