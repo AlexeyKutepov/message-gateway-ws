@@ -3,6 +3,7 @@ The SOAP-service for JBoss Fuse 6.1
 This service send email-messages from your smtp-server.
 
 How to use:
+
 1. Clone this repositry and open the project folder: 
 $ git clone https://github.com/AlexeyKutepov/message-gateway-ws.git
 $ cd message-gateway-ws
