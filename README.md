@@ -10,7 +10,7 @@ How to use:
    cd message-gateway-ws
 
 2. #####Install this project:
-   $ mvn install
+   mvn install
 
 3. #####Create file message.gateway.ws.cfg in {path to JBoss Fuse}/etc/ and add the following propertys:
    mail.host=your smtp server host
