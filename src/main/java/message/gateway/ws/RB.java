@@ -1,6 +1,5 @@
 package message.gateway.ws;
 
-import com.tz.schemas.message_gateway_ws.*;
 import message.gateway.ws.types.NotValidMessageException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JaxbDataFormat;
@@ -16,17 +15,17 @@ public class RB extends RouteBuilder {
 
         JaxbDataFormat jaxbSendMessageRequest = new JaxbDataFormat(true);
         jaxbSendMessageRequest.setContextPath("com.tz.schemas.message_gateway_ws");
-        jaxbSendMessageRequest.setPartClass(SendEmailMessage.class.getName());
+        jaxbSendMessageRequest.setPartClass(com.tz.schemas.message_gateway_ws.SendEmailMessage.class.getName());
         jaxbSendMessageRequest.setPartNamespace("{http://schemas.tz.com/message-gateway-ws}SendEmailMessage");
 
         JaxbDataFormat jaxbSendMessageAsyncRequest = new JaxbDataFormat(true);
         jaxbSendMessageAsyncRequest.setContextPath("com.tz.schemas.message_gateway_ws");
-        jaxbSendMessageAsyncRequest.setPartClass(SendEmailMessageAsync.class.getName());
+        jaxbSendMessageAsyncRequest.setPartClass(com.tz.schemas.message_gateway_ws.SendEmailMessageAsync.class.getName());
         jaxbSendMessageAsyncRequest.setPartNamespace("{http://schemas.tz.com/message-gateway-ws}SendEmailMessageAsync");
 
         JaxbDataFormat jaxbSendMessageResponse = new JaxbDataFormat(true);
         jaxbSendMessageResponse.setContextPath("com.tz.schemas.message_gateway_ws");
-        jaxbSendMessageResponse.setPartClass(SendMessageResponseType.class.getName());
+        jaxbSendMessageResponse.setPartClass(com.tz.schemas.message_gateway_ws.SendMessageResponseType.class.getName());
         jaxbSendMessageResponse.setPartNamespace("{http://schemas.tz.com/message-gateway-ws}SendMessageResponseType");
 
         onException(NotValidMessageException.class)
@@ -76,7 +75,7 @@ public class RB extends RouteBuilder {
                 ;
 
         //Очередь seda с 25-ю обработчиками
-        from("seda:emailQueue?size=10000&concurrentConsumers=25")
+        from("seda:emailQueue?concurrentConsumers=25")
                 .to("log:from_email_queue?level=DEBUG&showAll=true&multiline=true")
                 .unmarshal(jaxbSendMessageAsyncRequest)
                 .setBody(simple("${body?.getMessage}"))
